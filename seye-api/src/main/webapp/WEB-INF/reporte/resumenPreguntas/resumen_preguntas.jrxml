@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="561e685e-83a4-4113-8990-d0b6b1ad1f42">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="315"/>
+	<subDataset name="dataset1_1" uuid="7356e04b-deb6-48ba-889d-e716b5f8c716">
+		<field name="_THIS" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset1" uuid="d31659a1-df1a-4581-af74-50ad9e1ca7ec">
+		<field name="pregunta" class="java.lang.String"/>
+		<field name="opcion" class="java.lang.String"/>
+		<field name="respuesta" class="java.io.InputStream"/>
+		<field name="opcionCorrecta" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dataset2" uuid="9010a989-6c89-4177-8f3c-96104d22c47d"/>
+	<parameter name="NOMBRE" class="java.lang.String"/>
+	<parameter name="FECHA" class="java.lang.String"/>
+	<parameter name="SEDE" class="java.lang.String"/>
+	<parameter name="GRADO" class="java.lang.String"/>
+	<parameter name="PLACA" class="java.lang.String"/>
+	<parameter name="ACIERTOS" class="java.lang.String"/>
+	<parameter name="CALIFICACION" class="java.lang.String"/>
+	<parameter name="TIPO_DOCUMENTO" class="java.lang.String"/>
+	<parameter name="NOMBRE_DOCUMENTO" class="java.lang.String"/>
+	<parameter name="listPreguntas" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="IMAGEN1" class="java.io.InputStream"/>
+	<parameter name="IMAGEN2" class="java.io.InputStream"/>
+	<parameter name="IMAGEN3" class="java.io.InputStream"/>
+	<parameter name="IMAGENCORRECTO" class="java.io.InputStream"/>
+	<parameter name="IMAGENINCORRECTO" class="java.io.InputStream"/>
+	<parameter name="RESULTADO" class="java.lang.String"/>
+	<title>
+		<band height="85">
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="16" y="1" width="108" height="67" uuid="e2500edd-f7be-498d-9942-60e1b75890e8"/>
+				<imageExpression><![CDATA[$P{IMAGEN1}]]></imageExpression>
+			</image>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="125" y="1" width="176" height="68" uuid="7b348adc-7413-4947-9849-616c08167cc7"/>
+				<imageExpression><![CDATA[$P{IMAGEN2}]]></imageExpression>
+			</image>
+			<rectangle>
+				<reportElement x="16" y="72" width="522" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="45f93184-dbbe-4025-bd49-3d6d5f709587"/>
+			</rectangle>
+			<image onErrorType="Blank">
+				<reportElement positionType="Float" x="302" y="2" width="236" height="68" uuid="cb8374a1-763e-4072-8f8e-fec0a02779c1"/>
+				<imageExpression><![CDATA[$P{IMAGEN3}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="52">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}.intValue()>1]]></printWhenExpression>
+			<rectangle>
+				<reportElement x="16" y="35" width="522" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="3bb1de5d-a54b-4cdc-8077-248c1d0b4f74"/>
+			</rectangle>
+			<textField>
+				<reportElement x="176" y="7" width="203" height="23" uuid="abf16014-d567-4a84-96ce-229da677255e"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="342" splitType="Stretch">
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="358" y="73" width="179" height="20" uuid="21aa625e-c699-408f-927c-f4db7c21430f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha: " + $P{FECHA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="16" y="73" width="311" height="20" uuid="4e0ed5ec-1df2-4b02-a96a-86e46001fc05"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nombre: " + $P{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="16" y="105" width="175" height="18" uuid="c41a6bdb-7d6f-460a-8eb6-95af705f7a97">
+					<printWhenExpression><![CDATA[new Boolean($P{SEDE} !=null)]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Sede: " + $P{SEDE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="193" y="105" width="188" height="18" uuid="7e367092-bd6b-4c15-8c69-4e24072ee460"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Grado: " + $P{GRADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="401" y="105" width="135" height="18" uuid="28679571-3be6-4995-8df2-19bc558d6736"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Placa: " + $P{PLACA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="194" y="129" width="122" height="18" uuid="13a277af-88b4-44ea-8ad6-bd67f87d4da2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Calificación: " + $P{CALIFICACION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="16" y="5" width="522" height="21" uuid="b21e4ba4-1060-4b7b-8456-450f6da9620d"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TIPO_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="16" y="28" width="522" height="21" uuid="1fd2e10f-ed9c-43cb-9905-309eb7d95d43"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE_DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement x="16" y="158" width="522" height="74" uuid="49c6e3a6-2a2b-439a-9497-1bf5b94259c4"/>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
+					<datasetRun subDataset="dataset1" uuid="14612554-053e-48da-b251-bcc64b3c2fb9">
+						<dataSourceExpression><![CDATA[$P{listPreguntas}]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="74" width="522">
+						<textField isStretchWithOverflow="true">
+							<reportElement positionType="Float" x="34" y="6" width="485" height="20" uuid="97dd9d82-e633-4a12-9a71-81858f34246b"/>
+							<textElement textAlignment="Justified">
+								<font size="11"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{pregunta}]]></textFieldExpression>
+						</textField>
+						<textField isStretchWithOverflow="true">
+							<reportElement positionType="Float" x="49" y="30" width="470" height="20" uuid="4a4fad7d-0976-47bd-9f26-35b4972c9d5d"/>
+							<textElement>
+								<font size="11"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{opcion}]]></textFieldExpression>
+						</textField>
+						<image isUsingCache="true" isLazy="true" onErrorType="Icon">
+							<reportElement x="6" y="5" width="24" height="25" uuid="6d43e647-31ff-439d-acbe-4abf5531714a"/>
+							<imageExpression><![CDATA[$F{respuesta}]]></imageExpression>
+						</image>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="49" y="53" width="470" height="20" isRemoveLineWhenBlank="true" uuid="ec87d38a-615a-4f8e-891b-bcd75c47511a">
+								<printWhenExpression><![CDATA[$F{opcionCorrecta} != null]]></printWhenExpression>
+							</reportElement>
+							<textElement markup="styled">
+								<font size="11" isBold="false" isPdfEmbedded="true"/>
+							</textElement>
+							<textFieldExpression><![CDATA["<style isBold='true' pdfFontName='Helvetica-Bold'>"+"Respuesta correcta: "+ "</style>"+$F{opcionCorrecta}]]></textFieldExpression>
+						</textField>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="327" y="129" width="208" height="20" uuid="591e0589-bad1-4997-aa87-244a1083e044"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Resultado: " + $P{RESULTADO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="16" y="127" width="175" height="20" uuid="e5692d4c-3a52-4f62-a5f8-72bda1a330aa"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Aciertos: "+ $P{ACIERTOS}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="45" splitType="Stretch">
+			<textField>
+				<reportElement x="431" y="10" width="80" height="20" uuid="d506bb2d-47db-42bd-a9a9-9f82b88ceb9e"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="483" y="10" width="40" height="20" uuid="40591447-782a-4fcd-a443-f3e657904507"/>
+				<textElement textAlignment="Right">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="19" y="10" width="309" height="20" uuid="4d7d76c0-cf42-472c-91fa-4a99ddf52835"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

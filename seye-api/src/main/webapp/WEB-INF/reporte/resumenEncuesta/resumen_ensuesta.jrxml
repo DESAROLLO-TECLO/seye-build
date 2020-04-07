@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3870c93a-7602-45bd-b441-d58f16f7c093">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="NOMBRE" class="java.lang.String"/>
+	<parameter name="FECHA" class="java.lang.String"/>
+	<parameter name="SEDE" class="java.lang.String"/>
+	<parameter name="GRADO" class="java.lang.String"/>
+	<parameter name="PLACA" class="java.lang.String"/>
+	<parameter name="ACIERTOS" class="java.lang.String"/>
+	<parameter name="CALIFICACION" class="java.lang.String"/>
+	<parameter name="TIPO_DOCUMENTO" class="java.lang.String"/>
+	<parameter name="NOMBRE_DOCUMENTO" class="java.lang.String"/>
+	<parameter name="FOLIO" class="java.lang.String"/>
+	<parameter name="RESP_C" class="java.lang.String"/>
+	<parameter name="DURACION" class="java.lang.String"/>
+	<parameter name="RESP_INC" class="java.lang.String"/>
+	<parameter name="PUNTOS_OBT" class="java.lang.String"/>
+	<parameter name="SECCIONES" class="java.lang.String"/>
+	<parameter name="PREGUNTAS" class="java.lang.String"/>
+	<parameter name="PORCENTAJE" class="java.lang.String"/>
+	<parameter name="RESP_N_R" class="java.lang.String"/>
+	<parameter name="RESULTADO" class="java.lang.String"/>
+	<parameter name="IMAGEN1" class="java.io.InputStream"/>
+	<parameter name="IMAGEN2" class="java.io.InputStream"/>
+	<parameter name="FECHA_ACTUAL" class="java.lang.String"/>
+	<parameter name="IMAGEN3" class="java.io.InputStream"/>
+	<parameter name="TITULO" class="java.lang.String"/>
+	<parameter name="CUERPO" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="475">
+			<image>
+				<reportElement positionType="Float" x="260" y="7" width="188" height="68" uuid="59869bc3-9645-42a8-a1ef-64f859a2aa5e"/>
+				<imageExpression><![CDATA[$P{IMAGEN2}]]></imageExpression>
+			</image>
+			<image>
+				<reportElement positionType="Float" x="153" y="7" width="107" height="67" uuid="594e74b8-f8d6-4bd6-afb8-d6699f33d556"/>
+				<imageExpression><![CDATA[$P{IMAGEN1}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="40" y="202" width="722" height="65" uuid="dfd8ecb5-a1ef-4778-8c1d-04f842425a37"/>
+				<textElement markup="styled">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{CUERPO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="209" y="291" width="384" height="31" uuid="712d2ab7-2cd9-4b55-95f6-f3ee955b3b82"/>
+				<textElement textAlignment="Center" markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Ciudad de México a " +$P{FECHA_ACTUAL}+"."]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="29" y="82" width="744" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="272a97ea-535a-4f89-ad38-8148746fd36e"/>
+			</rectangle>
+			<image>
+				<reportElement x="448" y="8" width="201" height="67" uuid="38a6f416-0562-4348-a697-7b3ca1655218"/>
+				<imageExpression><![CDATA[$P{IMAGEN3}]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="186" y="110" width="430" height="20" uuid="a239539a-12ad-447f-baea-7c8c99df8c30"/>
+				<textElement textAlignment="Center">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="186" y="164" width="430" height="36" uuid="815b8e3f-ee78-4890-84c0-4f2973d00a04"/>
+				<textElement textAlignment="Center">
+					<font size="28"/>
+				</textElement>
+				<textFieldExpression><![CDATA["COMPROBANTE"]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="36" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

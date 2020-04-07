@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Paso 1</title>
+	</head>
+	
+	<body>
+
+		<div class="row" ng-controller="preguntaController">
+			<form name="formStepTwo" novalidate>
+	<div class="col-md-12">
+		<div class="row">
+
+
+		<div class="col-md-1">
+			<div ng-repeat="seccion in encuestaDetalle.encuesta.secciones" > 
+				<span  ng-click="verPregunta(seccion)"
+				class="btn btn-danger btn-md">{{seccion.cdSeccion}}</span>
+			</div>
+		</div>
+
+				<div class="col-md-11">
+
+					<!--Area de Pregunta-->
+
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Preguntas</legend>
+						<!--SECCION DE PREGUNTAS -->
+						<div class="col-md-12">
+							<div>
+								<div class="box-header col-md-12">
+									<div class="col-md-3 col-xs-12">
+										<h3 class="box-title">
+											Preguntas : <span>{{ (listPregunta | filter:general.filter).length }}</span>
+										</h3>
+									</div>
+									<div class="col-md-8 col-xs-0">
+										<h3 class="box-title">
+											Seccion : <span>{{seccion}}</span>
+										</h3>
+									</div>
+								  
+								</div>
+								<div class="box-body table-responsive no-padding">
+									<table id="myTable2" class="table table-hover header-fixed">
+										<tbody>
+											<tr dir-paginate="respuesta in seccionVO.preguntas | filter:general.filter | orderBy:order:reverse | itemsPerPage: view.rowsPerPage ">
+												<td class="left" >
+													<span>{{respuesta.txPregunta}}</span><br/>
+													
+												</td>
+
+											</tr>
+											<tr ng-if="(seccionVO.preguntas | filter:general.filter).length < 1">
+												<td colspan="5" class="text-center">
+													<h4>No se encontraron preguntas</h4>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+
+									<div class="container-fluid">
+										<div class="fixed-table-pagination" style="display: block;">
+											<rows-per-page rows="view.rowsPerPage" filtro="general.filter" array="seccionVO.preguntas"></rows-per-page>
+											<div class="pull-right pagination">
+	
+												<dir-pagination-controls class="pagination"  pagination-id="myTable2"></dir-pagination-controls>
+											</div>
+										</div>
+									</div>
+								</div>
+						
+							</div>
+						</div>
+						<!--SECCION DE PREGUNTAS-->
+					</fieldset>
+
+					<!--Area de Pregunta-->
+				</div>						
+			</div>
+					</div>
+					
+					<div class="row centerCol">
+						<div class="col-xs-12 col-md-2">
+							<div class="centerRow">
+						        <button class="btn btn-danger" wz-previous>
+					        	<i class="fa fa-arrow-left"></i>
+						        </button>
+						        <button class="btn btn-default" wz-reset>
+						        	<i class="fa fa-refresh"></i>
+						        </button>
+						        <button class="btn btn-danger" ng-click="saveStepTwo()">
+						        	<i class="fa fa-arrow-right"></i>
+						        </button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

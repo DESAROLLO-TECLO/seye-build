@@ -1,0 +1,243 @@
+<section class="content-header">
+    <h1>{{breadCrumbs.servicio}}
+        <span ng-if="flags.isGridMode && gridOptions.data.length !== 0">
+            : {{ (gridOptions.data | filter : filter.user).length }}
+        </span>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a><i class="{{breadCrumbs.icono}}"></i>{{breadCrumbs.modulo}} </a>
+        </li>
+        <li class="active">{{breadCrumbs.servicio}}</li>
+    </ol>
+</section>
+<div class="container">
+    <form role="form" name="clave" novalidate>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="box box-danger">
+                        <div class="box-header with-border text-center">
+                            <h3 class="box-title">
+                                Clave Actual
+                            </h3>
+                        </div>
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group" ng-class="{'has-error': clave.clave.$invalid && clave.clave.$dirty}">
+                                        <label><i class="fa fa-asterisk"></i> Clave Actual</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                            <input ng-disabled="true" type="{{generales.tipo}}" class="form-control" name="clave" ng-model="generales.actual.txValor" required>
+                                            <span class="input-group-addon" style="cursor: pointer;" ng-click="verClave(generales.actual)" tooltip-placement="top" tooltip="{{banderas.eye ? 'Mostrar': 'Ocultar'}}">
+                                                <i ng-if="banderas.eye" class="fa fa-eye"></i>
+                                                <i ng-if="!banderas.eye" class="fa fa-eye-slash"></i>
+                                            </span>
+                                        </div>
+                                        <div ng-show="clave.clave.$error.required && clave.clave.$dirty" ng-style="{color:'red'}">
+                                            <span>La clave actual es requerido</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <!-- <label><i class="fa fa-asterisk"></i> Clave Actual</label> -->
+                                        <div class="input-group">
+                                            <button class="btn btn-danger" tooltip-placement="bottom" tooltip="Generar nueva clave" ng-click="nuevaClave()">
+                                                <i class="fa fa-lg fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+    <div class="row rowCustom col-md-12" ng-if="lists.claves.length > 0">
+        <div class="box box-danger">
+            <div class="box-header col-md-12">
+                <div class="col-md-6 col-xs-12">
+                    <h3 class="box-title">
+                        Registros Encontrados: <span>{{ (lists.claves | filter:generales.filter).length }}</span>
+                    </h3>
+                </div>
+                <div class="col-md-6 form-group">
+                    <div class="row">
+                        <div class="col-md-offset-4 col-md-7 col-xs-8">
+                            <div class="input-group">
+                                <input id="searchsomething" type="text" class="form-control" placeholder="Buscar por filtro" ng-model="generales.filter">
+                                <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover header-fixed">
+                    <thead>
+                        <tr>
+                            <th class="wrap-text" sort order="'fhVigenciaIni'" by="order" reverse="reverse">INICIO DE USO</th>
+                            <th class="wrap-text" sort order="'fhVigenciaFin'" by="order" reverse="reverse">FIN DE USO</th>
+                            <th class="wrap-text">CONTRASEÑA</th>
+                            <th class="wrap-text" sort order="'estatus'" by="order" reverse="reverse">ESTATUS</th>
+                            <th class="wrap-text">ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="data in lists.claves | filter:generales.filter | orderBy:order:reverse | itemsPerPage: general.rowsPerPage ">
+                            <td class="center wrap-text">{{data.fhVigenciaIni | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <td class="center wrap-text">{{data.fhVigenciaFin | date:'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <td class="center">
+                                <div class="input-group">
+                                    <input ng-disabled="true" type="{{data.tipo}}" class="form-control" ng-model="data.txValor">
+                                    <span class="input-group-addon" style="cursor: pointer;" ng-click="claveTabla(data)" tooltip-placement="left" tooltip="{{data.eye ? 'Mostrar': 'Ocultar'}}">
+                                        <i ng-if="data.eye" class="fa fa-eye"></i>
+                                        <i ng-if="!data.eye" class="fa fa-eye-slash"></i>
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="center">
+                                <label class="btn-xs" style="color: #ffffff; background-color: {{data.cdcolor}}; border: 0; ">
+                                    {{data.estatus.nbStPassword}}
+                                </label>
+                            </td>
+                            <td class="center">
+                                <button ng-if="data.estatus.cdStPassword == 'TEE024C_PENDIENTE'" ng-click="activarClave(data)" class="btn btn-sm btn-danger" tooltip-placement="bottom" tooltip="Empezar a usar ahora"> <i class="fa fa-check"></i>
+                            </button>
+                            </td>
+                        </tr>
+                        <tr ng-if="(lists.claves | filter:generales.filter).length < 1">
+                            <td colspan="5" class="text-center">
+                                <h4>No se encontraron coincidencias</h4>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="container-fluid">
+                <div class="fixed-table-pagination" style="display: block;">
+                    <rows-per-page rows="general.rowsPerPage" filtro="generales.filter" array="lists.claves"></rows-per-page>
+                    <div class="pull-right pagination">
+                        <dir-pagination-controls class="pagination"></dir-pagination-controls>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form role="form" name="formNuevaClave" novalidate>
+    <toast is-toast="banderas.modal" icon-toast="fa fa-plus" title-toast="NUEVA CLAVE" hidden-close="true" backdrop-toast="false" uppercase-title="true">
+        <toast-content>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : formNuevaClave.txValor.$invalid && formNuevaClave.txValor.$dirty}">
+                        <label><span class="asteriskReq">*</span>Nueva Clave</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-key"></i>
+                            </div>
+                            <input type="text" class="form-control" name="txValor" id="txValor" required ng-model="generales.clave.txValor" maxlength="100" />
+                        </div>
+                        <div ng-show="formNuevaClave.txValor.$invalid && formNuevaClave.txValor.$dirty">
+                            <span class="help-block">La clave es requerida</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : formNuevaClave.estatus.$invalid && formNuevaClave.estatus.$dirty}">
+                        <label><span class="asteriskReq">*</span>Estatus</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-list-alt"></i>
+                            </div>
+                            <select class="form-control" select2 data-minimum-results-for-search="Infinity" required idioma-s2="{{currentLanguage}}" ng-model="generales.clave.estatus" ng-options="p as p.nbStPassword for p in lists.estatus track by p.idStPassword" id="estatus" name="estatus">
+                                <option value="">{{'APP.Base.mensaje.seleccioneOpcion' | translate}}</option>
+                            </select>
+                        </div>
+                        <div ng-show="formNuevaClave.estatus.$invalid && formNuevaClave.estatus.$dirty">
+                            <span class="help-block">Vigencia final es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{ 'has-error' : formNuevaClave.fhVigenciaIni.$invalid && formNuevaClave.fhVigenciaIni.$dirty}">
+                        <label><span class="asteriskReq">*</span>Fecha Inicio</label>
+                        <div class="input-group" datetime-picker options="dateTimePickerOptions" id="fhVigenciaIni" ng-model="generales.clave.fhVigenciaIni" name="fhVigenciaIni" readonly required elemento="'fhEnd'">
+                            <div class="input-group-addon labelCheck">
+                                <i class="fa fa-calendar-plus-o"></i>
+                            </div>
+                            <input class="form-control inputFecha">
+                        </div>
+                        <div ng-show="formNuevaClave.fhVigenciaIni.$invalid && formNuevaClave.fhVigenciaIni.$dirty">
+                            <span class="help-block">Vigencia inicio es requerido</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group" ng-class="{ 'has-error' : formNuevaClave.fhVigenciaFin.$invalid && formNuevaClave.fhVigenciaFin.$dirty}">
+                        <label><span class="asteriskReq" ng-if="generales.clave.stVigencia == 1">*</span>Fecha Fin</label>
+                        <div class="input-group" datetime-picker options="dateTimePickerOptions" ng-disabled="generales.clave.stVigencia == 0" id="fhVigenciaFin" ng-model="generales.clave.fhVigenciaFin" name="fhVigenciaFin" readonly ng-required="generales.clave.stVigencia == 1"
+                            elemento="'fhEnd'">
+                            <div class="input-group-addon labelCheck">
+                                <i class="fa fa-calendar-plus-o"></i>
+                            </div>
+                            <input class="form-control inputFecha">
+                        </div>
+                        <div ng-show="formNuevaClave.fhVigenciaFin.$invalid && formNuevaClave.fhVigenciaFin.$dirty">
+                            <span class="help-block">Vigencia final es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="banderas.selectPerfil">
+                <div class="col-md-12">
+                    <div class="form-group" ng-class="{ 'has-error' : formNuevaClave.perfiles.$invalid && formNuevaClave.perfiles.$dirty}">
+                        <label><span class="asteriskReq">*</span>Perfiles</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-list-alt"></i>
+                            </div>
+                            <select class="form-control" select2 data-minimum-results-for-search="Infinity" idioma-s2="{{currentLanguage}}" ng-model="generales.clave.perfiles" ng-options="p as p.nbPerfil for p in lists.perfiles track by p.idPerfil" id="perfiles" name="perfiles">
+                                <option value="">{{'APP.Base.mensaje.seleccioneOpcion' | translate}}</option>
+                            </select>
+                        </div>
+                        <div ng-show="formNuevaClave.perfiles.$invalid && formNuevaClave.perfiles.$dirty">
+                            <span class="help-block">Vigencia final es requerido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="stVigencia" class="labelCheck"> Estatus de Vigencia </label>
+                        <switcher class="swTeclo" id-check="stVigencia" ng-model="generales.clave.stVigencia" ng-change="changeStatusUser(newValue, oldValue, user)" true-label="Definido" false-label="Indefinido" true-value="1" false-value="0">
+                        </switcher>
+                    </div>
+                </div>
+            </div> -->
+            <div class="toast-footer">
+                <div class="centerRowAround text-center">
+                    <button class="btn btn-danger fadeInDown a-10ms" ng-click="guardar(generales.clave, formNuevaClave)">
+                        Guardar
+                    </button>
+                    <button class="btn btn-danger fadeInDown a-10ms" ng-click="descartar()">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </toast-content>
+    </toast>
+</form>

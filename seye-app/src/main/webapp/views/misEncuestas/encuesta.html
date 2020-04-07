@@ -1,0 +1,74 @@
+<head>
+	<meta charset="utf-8">
+	<style>
+		.toolTip{
+			background: #f4f4f4;
+			border: 2px solid #87cefa;
+			border-radius: 5px;
+			box-shadow: 5px 5px 5px #333;
+			color: #87cefa;
+			font-size: 0.8em;
+			padding: 10px 10px 10px 35px;
+			max-width: 600px;
+			position: absolute;
+			z-index: 9999;   
+		}
+	</style>
+</head>
+<body>
+	<section class="content-header">
+		<h1>{{breadCrumbs.servicio}}
+			<span ng-if="flags.isGridMode && gridOptions.data.length !== 0">
+				: {{ (gridOptions.data | filter : filter.user).length }}
+			</span>
+		</h1>
+		<ol class="breadcrumb">
+			<li>
+				<a><i class="{{breadCrumbs.icono}}"></i>{{breadCrumbs.modulo}} </a>
+			</li>
+			<li class="active">{{breadCrumbs.servicio}}</li>
+		</ol>
+	</section>
+	<div class="container">
+		<form role="form" name="formEncuesta" novalidate>
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12">
+						<!-- EMPIEZA ASISTENTE DE PASOS ANGULAR-WIZARD -->
+						<div class="box box-danger">
+							<div class="box-header with-border text-center">
+								<h3 class="box-title">
+										{{encuestaDetalle.encuesta.nbEncuesta}}
+								</h3>
+							</div>
+							<div class="box-body">
+								<wizard name="wizardExample" indicators-position="top" disable
+										on-finish="saveWizard()" on-cancel="cancelWizard()">
+										
+									<wz-step id="w-inst" wz-icon="fa-list" wz-title="Instrucciones" >
+										<div ng-include="'views/misEncuestas/stepsEncuesta/instruccion.html'">
+											<!-- Contenido del paso 1 -->
+										</div>
+									</wz-step>
+										
+								    <wz-step wz-icon="fa-info" wz-title="Preguntas" >
+								        <div ng-include="'views/misEncuestas/stepsEncuesta/pregunta2.html'">
+								        	<!-- Contenido del paso 2 -->
+								        </div>
+								    </wz-step>
+								    
+								    <wz-step wz-icon="fa-edit" wz-title="Resultados" >
+								        <div ng-include="'views/misEncuestas/stepsEncuesta/resultado.html'">
+								        	<!-- Contenido del paso 3 -->
+								        </div>
+								    </wz-step>
+								</wizard>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</form>
+	</div>
+	
+</body>

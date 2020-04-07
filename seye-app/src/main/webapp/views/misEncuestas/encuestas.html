@@ -1,0 +1,702 @@
+<head>
+    <meta charset="utf-8">
+    <style>
+    	.modal-lg{
+    		width:75%;
+    	}
+    	.hr2{
+    		margin-bottom: .429rem;
+    		margin-top: 0;
+    		border-top: 1px solid #d7d7d7;
+    	}
+		.subTituloDI{
+    		color: rgba(155, 155, 155, 0.9);
+    	}
+    	.caption{
+/*     		padding-top: 0px !important; */
+    		padding-left: 0px !important;
+    		padding-right: 0px !important;
+    		padding-bottom: 0px !important;
+    	}
+    	.thumbnail{
+				padding: 0 !important;
+				margin-bottom: 0 !important;
+				min-height: 10px !important;
+		}
+		.text-16{
+			display:inline !important;
+		}
+    </style>
+</head>
+
+<body>
+    <section class="content-header">
+        <h1>{{breadCrumbs.servicio}}
+            <span ng-if="flags.isGridMode && gridOptions.data.length !== 0">
+				: {{ (gridOptions.data | filter : filter.encuesta).length }}
+			</span>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a><i class="{{breadCrumbs.icono}}"></i>{{breadCrumbs.modulo}} </a>
+            </li>
+            <li class="active">{{breadCrumbs.servicio}}</li>
+        </ol>
+    </section>
+
+    <section class="content">
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <div class="box box-danger">
+                    <div class="box-header with-border text-center">
+                        <div class="col-md-1 center"></div>
+                        <div class="col-md-10 center">
+                            <h3 class="box-title"> Búsqueda </h3>
+                        </div>
+                        <div class="col-md-1 box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool btn-danger" ng-click="initController()" style="font-size: 1.1rem;" data-toggle="tooltip" data-placement="right" title="Recargar">
+								<i class="fa fa-refresh" ></i>
+							</button>
+                        </div>
+                    </div>
+                    <div class="box-body center">
+                        <div class="row">
+                            <div class="col-md-3 col-md-offset-1">
+                                <label class="content-input">
+									<input type="radio" name="busquedaEncuestas" id="todos" value="todos"
+									ng-change="busquedaEncuestas(busqueda.encuestas)" ng-model="busqueda.encuestas">
+									Todos
+									<i></i>
+								</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="content-input">
+									<input type="radio" name="busquedaEncuestas" id="pendientes" value="pendientes"
+									ng-change="busquedaEncuestas(busqueda.encuestas)" ng-model="busqueda.encuestas">
+									Pendientes
+									<i></i>
+								</label>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="content-input">
+									<input type="radio" name="busquedaEncuestas" id="finalizadas" value="finalizadas"
+									ng-change="busquedaEncuestas(busqueda.encuestas)" ng-model="busqueda.encuestas">
+									Finalizadas
+									<i></i>
+								</label>
+                            </div>
+                            <div class="col-md-3 col-md-offset-1" ng-show="false">
+                                <button class="btn btn-danger" tooltip-placement="left" tooltip="{{flags.isGridMode ? 'LISTA' : 'MOSAICO'}}" ng-click="toggleModeView(flags.isGridMode ? 'list' : 'grid')" ng-disabled="!flags.isButtonMode">
+									<i class="fa" ng-class="{'fa-list': flags.isGridMode, 'fa-th': flags.isListMode}"></i>
+								</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- INTERFAZ DEL USUARIO -->
+            <article class="col-xs-12">
+                <!-- MODO MOSAICO -->
+                <div class="row" ng-if="flags.isGridMode">
+                    <div grid-data id='gridMode' grid-options="gridOptions" grid-actions="gridActions">
+                        <div class="col-sm-6 col-md-4" ng-repeat="user in gridOptions.data | startFrom:(paginationOptions.currentPage-1)*paginationOptions.itemsPerPage 
+							| limitTo:paginationOptions.itemsPerPage | filter:filter.encuesta track by $index">
+                            <div class="flip" ng-style="{'opacity' : (user.stValidacionCuenta == 0) ? '0.7' : '1'}">
+                                <div class="flip-container cardsAnimateIn">
+                                    <div class="flip-container__front">
+                                        <div class="box" ng-class="{'box-danger': user.stValidacionCuenta === 1}">
+                                            <div class="box-header with-border">
+                                                <div class="row">
+                                                    <div class="col-xs-8 vh-center">
+                                                        <i class="fa fa-user stUser" ng-class="{'isActive':user.stValidacionCuenta === 1}" tooltip="{{user.stValidacionCuenta === 1 ? 'Usuario activo':'Usuario inactivo'}}" tooltip-placement="right"></i>
+                                                        <span class="lbUser text-truncate" tooltip-placement="bottom" tooltip="{{user.nbUsuario}} {{user.nbApaterno}} {{user.nbAmaterno}}" ng-if="(user.nbUsuario+user.nbApaterno+user.nbAmaterno).length > 28">
+															{{user.nbUsuario}} {{user.nbApaterno}} {{user.nbAmaterno}}
+														</span>
+                                                        <span class="lbUser text-truncate" ng-if="(user.nbUsuario+user.nbApaterno+user.nbAmaterno).length <= 28">
+															{{user.nbUsuario}} {{user.nbApaterno}} {{user.nbAmaterno}}
+														</span>&nbsp;&nbsp;
+                                                    </div>
+                                                    <div class="col-xs-4 text-right">
+                                                        <button class="btn btnUsers btn-rounded btn-xs" tooltip="Administrar usuario" tooltip-placement="left" ng-click="toggleUserCard($event,'open')">
+															<i class="fa fa-cog"></i>
+														</button>
+                                                        <button class="btn btnUsers btn-rounded btn-xs" tooltip="Editar usuario" tooltip-placement="left" ng-click="editUser(user)">
+															<i class="fa fa-pencil"></i>
+														</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-body">
+                                                <div class="user-grid height-grid">
+                                                    <div class="user-grid__media">
+                                                        <div class="text-center">
+                                                            <img class="img-circle" ng-if="user.lbFoto" ng-src="data:image/png;base64,{{user.lbFoto}}" />
+                                                            <img class="img-circle" ng-if="!user.lbFoto" ng-src="static/dist/img/user-circle.svg" />
+                                                        </div>
+                                                        <div class="text-center " ng-if="user.perfil.nbPerfil.length > 13" tooltip="{{user.perfil.nbPerfil}}" tooltip-placement="top">
+                                                            <strong ng-class="{'isActiveUsr': user.stValidacionCuenta == 1,'isInactiveUsr': user.stValidacionCuenta == 0}">
+																{{user.perfil.nbPerfil.substr(0,13)}}
+															</strong>
+                                                        </div>
+                                                        <div class="text-center" ng-if="user.perfil.nbPerfil.length <= 13">
+                                                            <strong ng-class="{'isActiveUsr': user.stValidacionCuenta == 1,'isInactiveUsr': user.stValidacionCuenta == 0}">
+																{{user.perfil.nbPerfil}}
+															</strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="user-grid__info">
+                                                        <div class="row">
+                                                            <div class="col-xs-5 text-right pr-0 text-truncate">
+                                                                <strong class="opcty">Usuario:</strong>
+                                                            </div>
+                                                            <div class="col-xs-7 pl-2 text-truncate">
+                                                                <strong>{{user.nbLogin}}</strong>
+                                                            </div>
+
+                                                            <div class="col-xs-5 text-right pr-0 text-truncate">
+                                                                <strong class="opcty">Creado:</strong>
+                                                            </div>
+                                                            <div class="col-xs-7 pl-2 text-truncate">
+                                                                <strong>{{user.fhCreacion !== '' ? user.fhCreacion : 'Sin fecha' | date:'dd-MM-yyyy HH:mm:ss'}}</strong>
+                                                            </div>
+
+                                                            <div class="col-xs-5 text-right pr-0 text-truncate">
+                                                                <strong class="opcty">Modificado:</strong>
+                                                            </div>
+                                                            <div class="col-xs-7 pl-2 text-truncate">
+                                                                <strong>{{user.fhModificacion !== '' ? user.fhModificacion : 'Sin fecha' | date:'dd-MM-yyyy HH:mm:ss'}}</strong>
+                                                            </div>
+
+                                                            <div class="col-xs-5 text-right pr-0 text-truncate">
+                                                                <strong class="opcty">Correo:</strong>
+                                                            </div>
+                                                            <div class="col-xs-7 pl-2 text-truncate">
+                                                                <strong>{{user.correo.nbCorreo !== '' ? user.correo.nbCorreo : 'Sin correo'}}</strong>
+                                                            </div>
+
+                                                            <div class="col-xs-5 text-right pr-0 text-truncate">
+                                                                <strong class="opcty">Teléfono:</strong>
+                                                            </div>
+                                                            <div class="col-xs-7 pl-2 text-truncate">
+                                                                <strong>{{user.telefono.nuTelefono !== '' ? user.telefono.nuTelefono : 'Sin teléfono' | tel}}</strong>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flip-container__back">
+                                        <div class="box" ng-class="{'box-danger': user.stValidacionCuenta === 1}">
+                                            <div class="box-header with-border">
+                                                <div class="row">
+                                                    <div class="col-xs-8 vh-center">
+                                                        <i class="fa fa-user stUser" ng-class="{'isActive':user.stValidacionCuenta === 1}"></i>
+                                                        <span class="lbUser text-truncate" tooltip-placement="bottom" tooltip="{{user.nbUsuario}} {{user.nbApaterno}} {{user.nbAmaterno}}" ng-if="(user.nbUsuario+user.nbApaterno+user.nbAmaterno).length > 28">
+															{{user.nbUsuario}} {{user.nbApaterno}} {{user.nbAmaterno}}
+														</span>
+                                                        <span class="lbUser text-truncate" ng-if="(user.nbUsuario+user.nbApaterno+user.nbAmaterno).length <= 28">
+															{{user.nbUsuario}} {{user.nbApaterno}} {{user.nbAmaterno}}
+														</span>
+                                                    </div>
+                                                    <div class="col-xs-4 text-right">
+                                                        <button class="btn btnUsers btn-rounded btn-xs" ng-click="toggleUserCard($event,'close')">
+															<i class="fa fa-times"></i>
+														</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-body">
+                                                <div class="height-grid__back">
+                                                    <div class="row">
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label>Tipo de Identificación:</label>
+                                                                <div class="input-group">
+                                                                    <span>{{user.tipoIdentificacion.nbTipoDocumen}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6">
+                                                            <div class="form-group">
+                                                                <label>Código de Identificación:</label>
+                                                                <div class="input-group">
+                                                                    <span>{{user.cdIdentificacion}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="form-group text-center">
+                                                                <switcher class="swTeclo" id-check="stUser-{{user.idUsuarioExterno}}" 
+                                                                	ng-model="user.stValidacionCuenta" ng-change="changeStatusUser(newValue, oldValue, user)" 
+                                                                	true-label="Habilitado" false-label="Inhabilitado" ng-disabled="true" true-value="1" false-value="0">
+                                                                </switcher>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-center reset-password" tooltip="Reestablecer contraseÃ±a" tooltip-placement="left">
+                                                            <button class="btn btn-box-tool" ng-class="{'btn-danger': user.stValidacionCuenta === 1}" 
+                                                            	ng-click="restorePassword(user)">
+																<i class="fa fa-key"></i>
+															</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 text-center" ng-if="(gridOptions.data | filter:filter.encuesta).length < 1">
+                            <h3 class="cardsAnimateIn">No se encontraron coincidencias</h3>
+                        </div>
+                        <div class="col-xs-12" ng-if="paginationOptions.totalItems > 6">
+                            <div class="centerRow pagination-user paginationAnimateIn">
+                                <div class="pagination-detail">
+                                    <span class="pagination-info">
+										<span> Mostrar </span>
+                                    <span class="page-list">
+											<span class="btn-group dropup" style="min-width: 50px;">
+												<select select2 id="itemsOnPageSelect2" data-minimum-results-for-search="Infinity"
+													class="form-control" ng-init="paginationOptions.itemsPerPage = '6'"
+													ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+													<option>6</option>
+													<option ng-if="gridOptions.data.length > 24">24</option>
+													<option ng-if="gridOptions.data.length > 60">60</option>
+													<option ng-if="gridOptions.data.length > 120">120</option>
+													<option>Todos</option>
+												</select>
+											</span>
+                                    </span>
+                                    <span> registros</span>
+                                    </span>
+                                </div>
+                                <div class="form-group">
+                                    <grid-pagination max-size="5" boundary-links="true" total-items="paginationOptions.totalItems" ng-model="paginationOptions.currentPage" ng-change="reloadGrid()" items-per-page="paginationOptions.itemsPerPage">
+                                    </grid-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MODO LISTA -->
+                <div class="row" ng-if="flags.isListMode">
+                    <div class="col-xs-12">
+                        <br>
+                        <div class="box box-danger">
+                            <div class="box-header with-border">
+                                <div class="col-md-3">
+                                    <h3 class="box-title">
+                                        Registros encontrados: {{ (gridOptions.data | filter : filter.encuesta).length }}
+                                    </h3>
+                                </div>
+                                <div class="col-md-6 col-xs-9 center">
+                                	<p style="margin-top: .5rem;"><b>{{msjTabla}}</b></p>
+                                	</div>
+                                <div class="col-md-3">
+                                    <div class="form-group col-md-10">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Buscar por filtro" ng-model="filter.encuesta">
+                                            <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 pull-right">
+                                        <img class="cursor_pointer" src="static/dist/img/excel.png" ng-click="descargarExcel()">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover header-fixed">
+                                        <thead>
+                                            <tr>
+                                                <th sort order="'folio'"		by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:11%" COLSPAN="2">FOLIO</th>
+                                                <th sort order="'nombre'"		by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:16%">NOMBRE</th>
+                                                <th sort order="'fhInicio'"		by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:12%">FECHA INICIO</th>
+                                                <th sort order="'fhFin'"		by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:12%">FECHA FIN</th>
+                                                <th sort order="'calificacion'" by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:10%">CALIFICACIÓN</th>
+                                                <th sort order="'seccion'"		by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:9%">SECCIÓN</th>
+                                                <th sort order="'preguntas'"	by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:10%">PREGUNTAS</th>
+                                                <th sort order="'intentos'"		by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:10%">INTENTOS</th>
+                                                <th sort order="'accion'"		by="tabla.order" reverse="tabla.reverse" class="wrap-text" style="width:10%">COMPROBANTE</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="encuesta in gridOptions.data | orderBy:tabla.order:tabla.reverse | filter:filter.encuesta | itemsPerPage:tabla.view.rowsPerPageVal">
+                                                <td class="center" style="width: 2%; height: 100%; vertical-align: middle;">
+                                                    <span class="etiquetaCancelado" 
+                                                    	style="background-color: {{encuesta.cdColor}}; min-height: 40px; height: 100%;" 
+                                                    	data-toggle="tooltip" data-placement="left" title="{{encuesta.estatus}}">
+													</span>
+                                                </td>
+                                                <td class="center" style="width:7%"> {{encuesta.cdEncuesta}} 
+                                                	<a href="#/encuesta/{{encuesta.idEncuesta}}/{{encuesta.idUsuarioEncuesta}}/{{encuesta.idUsuEncuIntento}}" 
+                                                    	ng-show="encuesta.stAplicaEncuesta">
+														<span class="etiquetaCancelado fullWidth" ng-show="encuesta.stAplicaEncuesta"
+	                                                    	style="cursor: pointer; background-color: {{encuesta.cdColor}};" 
+	                                                    	data-toggle="tooltip" data-placement="bottom" title="{{encuesta.accion}}">
+                                                    		{{encuesta.accionBtn}}
+                                                    	</span>
+                                                    </a>
+                                                </td>
+                                                <td class="center" style="width:16%">
+                                                    <span class="cursor_pointer" tooltip="{{encuesta.txEncuesta}}" tooltip-placement="top">
+					                                	{{encuesta.nbEncuesta}}
+				                                	</span>
+                                                </td>
+                                                <td class="center" style="width:12%"> {{encuesta.fhInicio | date: 'dd/MM/yyyy hh:mm'}} </td>
+                                                <td class="center" style="width:12%"> {{encuesta.fhFin | date: 'dd/MM/yyyy hh:mm'}} </td>
+                                                <td class="center" style="width:8%">
+                                                    <span ng-show="encuesta.estatusBusq == 'Finalizado'" ng-click="detalleIntento(1,encuesta.idUsuarioEncuesta,encuesta.idUsuEncuIntento)" class="etiquetaCancelado col-md-6 fullWidth cursor_pointer" style="background-color: #868686;" tooltip="Detalle del intento"
+                                                        tooltip-placement="top">
+					                                	{{encuesta.nuCalificacion}}
+				                                	</span>
+                                                    <span ng-show="encuesta.estatusBusq != 'Finalizado'">
+					                                	{{encuesta.nuCalificacion}}
+				                                	</span>
+                                                </td>
+                                                <td class="center" style="width:10%"> {{encuesta.seccion}} </td>
+                                                <td class="center" style="width:10%"> {{encuesta.preguntas}} </td>
+                                                <td class="center" style="width:10%">
+                                                    <span ng-click="verIntentos($index)" ng-show="encuesta.intentos >= 1" 
+                                                    	class="etiquetaCancelado col-md-6 fullWidth" style="cursor: pointer; background-color: #868686; cursor_pointer" tooltip="Ver intentos" tooltip-placement="top">
+					                                	{{encuesta.intentos}}
+				                                	</span>
+                                                    <span ng-show="encuesta.intentos < 1">
+					                                	{{encuesta.intentos}}
+				                                	</span>
+                                                </td>
+                                                <td class="center" style="width:10%">
+                                                    <img class="cursor_pointer" tooltip-placement="top" tooltip="Descargar comprobante" width="25" 
+                                                    	src="static/dist/img/pdf_logo.png" 
+                                                    	ng-click="mostrarPDF(encuesta.idUsuarioEncuesta,encuesta.idUsuEncuIntento)" 
+                                                    	ng-show="encuesta.descargarPDF">
+<!--                                                     <a href="#/encuesta/{{encuesta.idEncuesta}}" ng-show="false"> -->
+<!--                                                         <button class="btn btn-danger btn-box-tool btn-sm" tooltip-placement="top" tooltip="{{encuesta.accion}}"> -->
+<!-- 															<i class="fa fa-pencil"></i> -->
+<!-- 														</button> -->
+<!--                                                     </a> -->
+                                                </td>
+                                            </tr>
+                                            <tr ng-if="(gridOptions.data | filter:filter.encuesta).length < 1">
+                                                <td colspan="5" class="text-center tableAnimateIn">
+                                                    <h3>No se encontraron evaluaciones</h3>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="centerRow paginationAnimateIn" style="align-items:center;">
+                                    <div class="pagination-detail">
+                                        <span class="pagination-info">
+											<span>Mostrar</span>
+                                        <span class="page-list">
+												<span class="btn-group dropup" style="width: 50px;">
+													<select select2 id="itemsOnPageSelect2" data-minimum-results-for-search="Infinity"
+														class="form-control" ng-init="paginationOptions.itemsPerPage = '5'"
+														ng-model="paginationOptions.itemsPerPage" ng-change="reloadGrid()">
+															<option ng-if="gridOptions.data.length < 5">{{gridOptions.data.length}}</option>
+															<option ng-if="gridOptions.data.length >= 5">5</option>
+															<option ng-if="gridOptions.data.length > 10">10</option>
+															<option ng-if="gridOptions.data.length > 50">50</option>
+															<option ng-if="gridOptions.data.length > 100">100</option>
+															<option ng-if="gridOptions.data.length > 5">Todos</option>
+													</select>
+												</span>
+                                        </span>
+                                        <span> registros</span>
+                                        </span>
+                                    </div>
+                                    <div class="form-group">
+                                        <grid-pagination max-size="5" boundary-links="true" total-items="paginationOptions.totalItems" ng-model="paginationOptions.currentPage" ng-change="reloadGrid()" items-per-page="paginationOptions.itemsPerPage">
+                                        </grid-pagination>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <modal visible="flags.verIntentos" size-modal="lg" noescape modalstatic on-hide="flags.verIntentos = false">
+            <modal-header title="{{titleIntentos}}"></modal-header>
+            <modal-body>
+                <div style="overflow-y: auto; overflow-x: hidden;">
+<!--                 height: calc(100vh - 18rem) !important; -->
+                    <div ng-show="!flags.detalleIntento">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="box box-danger">
+                                    <div class="box-header with-border text-center">
+                                        <h3 class="box-title"> Información General </h3>
+                                        <div class="box-tools pull-right">
+                                            <button id="x" type="button" class="btn btn-box-tool" data-widget="collapse">
+												<i class="fa fa-minus"></i>
+											</button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                    	<div class="row center">
+											<div class="col-md-12">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group" style="margin-bottom: 0 !important;">
+															<div class="thumbnail">
+												      			<div class="caption">
+												        			<h3>
+											        					{{cdEncuesta}} - {{nbEncuesta}}
+											        				</h3>
+												    			</div>
+												    		</div>
+														</div>
+													</div>
+													<div class="col-md-offset-2 col-md-3">
+														<div class="form-group" style="margin-bottom: 0 !important;">
+															<div class="thumbnail">
+												      			<div class="caption">
+												        			<h5>
+												        				<i class="fa fa-exchange"></i>
+																		<label>Secciones: </label>
+																		<label class="text-16">
+											        						{{nuSecciones}}
+											        					</label>
+																	</h5>
+												      			</div>
+												    		</div>
+														</div>
+													</div>
+													<div class="col-md-2 col-md-offset-3">
+														<div class="form-group" style="margin-bottom: 0 !important;">
+															<div class="thumbnail">
+														      <div class="caption">
+														        <h5>
+														        	<i class="fa fa-exchange"></i>
+																	<label>Preguntas: </label>
+																	<label class="text-16">
+														        		{{nuPreguntas}}
+														        	</label>
+																</h5>
+														      </div>
+														    </div>
+														</div>
+													</div>
+												</div>
+                                    		</div>
+                                		</div>
+                            		</div>
+                        		</div>
+		            		</div>      
+                    	</div>
+	                    <div class="row">
+							<div class="col-md-12">
+							    <div class="box box-danger">
+							        <div class="box-header with-border">
+							            <div class="col-md-6">
+							                <h3 class="box-title">
+							                    Registros encontrados: {{(listIntentos | filter:view.filterSearchVal).length}}
+							                </h3>
+							            </div>
+							            <div class="col-md-6 form-group">
+							                <div class="row">
+							                    <div class="col-md-offset-4 input-group pull-right">
+							                        <input type="text" class="form-control" placeholder="Buscar por filtro" ng-model="view.filterSearchVal">
+							                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							        <div class="box-body table-responsive">
+							            <table class="table table-hover table-striped">
+							                <thead>
+							                    <tr>
+							                        <th style="width:5%">
+							                            <span data-toggle="tooltip" data-placement="top" data-html="true" data-original-title="{{generales.txMarcaTodos}}">
+															<label class="containerCheck">
+							    								<input type="checkbox" ng-checked="flags.todos" ng-false-value="false" ng-true-value="true" 
+							    									ng-change="marcarTodos()" ng-model="flags.todos">
+							    								<span class="checkmark"></span>
+							                            	</label>
+							                            </span>
+							                        </th>
+							                        <th sort order="'calificacion'" by="tablaI.order" reverse="tablaI.reverse" class="wrap-text" style="width:10%">CALIFICACIÓN</th>
+							                        <th sort order="'resultado'" by="tablaI.order" reverse="tablaI.reverse" class="wrap-text" style="width:10%">RESULTADO</th>
+							                        <th sort order="'fhInicio'" by="tablaI.order" reverse="tablaI.reverse" class="wrap-text" style="width:10%">FECHA INICIO</th>
+							                        <th sort order="'fhFin'" by="tablaI.order" reverse="tablaI.reverse" class="wrap-text" style="width:8%">FECHA FIN</th>
+							                        <th sort order="'correctas'" by="tablaI.order" reverse="tablaI.reverse" class="wrap-text" style="width:9%">CORRECTAS</th>
+                                                    <th sort order="'incorrectas'" by="tablaI.order" reverse="tablaI.reverse" class="wrap-text" style="width:9%">INCORRECTAS</th>
+                                                <!--
+                                                    <th sort order="'sinContestar'" by="tablaI.order" reverse="tablaI.reverse" class="wrap-text" style="width:9%">SIN CONTESTAR</th>
+                                                -->
+							                        <th style="width:8%">
+							                            <!-- 														DESCARGAR DETALLE -->
+							                            <img class="cursor_pointer" tooltip-placement="top" tooltip="Descargar seleccionados" width="25" src="static/dist/img/pdf_logo.png" ng-click="mostrarPDF(null,null)">
+							                        </th>
+							                    </tr>
+							                </thead>
+							                <tbody align="center">
+							                    <tr dir-paginate="intento in listIntentos | orderBy:tablaI.order:tablaI.reverse | filter:view.filterSearchVal | itemsPerPage:view.rowsPerPageVal">
+							                        <td class="center" style="width:8%">
+														<span data-toggle="tooltip" data-placement="top" data-html="true" data-original-title="{{intento.txAgregar}}">
+															<label class="containerCheck">
+							                         			<input type="checkbox" ng-checked="intento.checked" ng-false-value="false" ng-true-value="true" 
+																	ng-model="intento.checked" ng-click="checkManual(intento)"
+																	ng-disabled="intento == null || intento.stCalificacion == null || intento.stCalificacion.cdStCalificacion != 'A'">
+							                         			<span class="checkmark"></span>
+							                                </label>
+														</span>
+							                        </td>
+													<td class="center">
+														<span ng-click="detalleIntento(2,idUsuarioEncuesta,intento.idUsuEncuIntento)" class="etiquetaCancelado col-md-6 fullWidth" style="background-color: #868686; cursor_pointer" tooltip="Detalle del intento" tooltip-placement="top">
+							              					{{intento.nuCalificacion}}
+							             				</span>
+						                            </td>
+						                            <td class="center"> {{intento.stCalificacion.nbStCalificacion}} </td>
+						                            <td class="center"> {{intento.fhInicio | date: 'dd/MM/yyyy hh:mm'}} </td>
+						                            <td class="center"> {{intento.fhFin | date: 'dd/MM/yyyy hh:mm'}} </td>
+						                            <td class="center"> {{intento.nuPreguntasCorrectas}} </td>
+						                            <td class="center"> {{intento.nuPreguntasIncorr}} </td>
+                                                <!--
+                                                    <td class="center"> {{intento.nuPreguntasNoRespondidas != null ? intento.nuPreguntasNoRespondidas : 0 }}</td>
+                                                -->
+						                            <td class="center">
+						                                <img ng-show="intento.nuPreguntasVacias == 0 && intento.stCalificacion.cdStCalificacion == 'A'"
+						                                	class="cursor_pointer" tooltip-placement="top" tooltip="Descargar evaluación" width="25" 
+                                                            src="static/dist/img/pdf_logo.png" ng-click="mostrarPDF(null,intento.idUsuEncuIntento)">
+						                            </td>
+						                        </tr>
+						                        <tr ng-if="(listIntentos | filter:view.filterSearchVal).length < 1">
+						                            <td colspan="17" class="text-center">
+						                                <h4>No se encontraron coincidencias</h4>
+						                            </td>
+						                        </tr>
+						                    </tbody>
+						                </table>
+						                <div class="container-fluid">
+						                    <div class="fixed-table-pagination">
+						                        <rows-per-page rows="view.rowsPerPageVal" filtro="view.filterSearchVal" array="listIntentos"></rows-per-page>
+						                        <dir-pagination-controls class="pull-right pagination-detail"></dir-pagination-controls>
+						                    </div>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+						</div>
+                	</div>
+                	<div ng-show="flags.detalleIntento">
+                       	<div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="box box-danger">
+                                    <div class="box-header with-border text-center">
+                                        <h3 class="box-title"> Detalle </h3>
+                                        <div class="box-tools pull-right">
+                                            <button id="x" type="button" class="btn btn-box-tool" data-widget="collapse">
+												<i class="fa fa-minus"></i>
+											</button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Folio de Evaluación: </label> {{cdEncuesta}}
+                                            </div>
+                                            <div class="col-md-8">
+                                                <label>Evaluación: </label> {{nbEncuesta}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Secciones: </label> {{nuSecciones}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Preguntas: </label> {{nuPreguntas}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Calificación: </label> {{nuCalificacion}} ({{nbStCalificacion}})
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Intento: </label> {{nuIntento}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Fecha inicio: </label> {{fhInicio}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Fecha fin: </label> {{fhFin}}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label>Correctas: </label> {{nuCorrectas}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Incorrectas: </label> {{nuIncorrectas}}
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label>Sin contestar: </label> {{nuSinContestar}}
+                                            </div>
+                                        </div>
+                                   	</div>
+                               	</div>
+                           	</div>
+                       	</div>
+						
+						<div class="row" ng-if="flags.detalleIntentoResp">
+                            <div class="col-md-12">
+                                <fieldset class="scheduler-border">
+                                    <legend class="scheduler-border text-16">Respuestas</legend>
+                                    <div class="box-body table-responsive no-padding">
+                                        <table id="myTable2" class="table table-hover header-fixed">
+                                            <tbody>
+                                                <div data-ng-repeat="seccion in preguntaRespuesta">
+                                                    <button type="button" class="btn btn-outline-secondary btn-block" data-toggle="collapse" data-target="#{{seccion.idSeccion}}">
+														<span  class="titulo-resp center">{{seccion.nbSeccion}}</span>
+														<i class="fa fa-arrow-down" style="display: inline-block; float: right; padding: 1%;"></i>
+													</button>
+                                                    <div id="{{seccion.idSeccion}}" class="collapse">
+                                                        <div data-ng-repeat="respuesta in  seccion.resumenRespuesta" pagination-id="myTable2">
+                                                            <span class="text-15-res">{{respuesta.pregunta.txPregunta}}</span>
+                                                            <ul>
+                                                                <li style="list-style:none;" data-ng-repeat="opciones in respuesta.pregunta.opciones">
+                                                                   
+                                                                    <span ng-if="opciones.stMarcado">
+                                                                       <!--
+																		<span ng-if="opciones.stCorrecto == 1" style="display:inline-block;">
+																			<img alt="" src="static/dist/img/correct.png" style="display:inline-block; width: 20px;">
+																		</span>
+                                                                    <span ng-if="opciones.stCorrecto == 0" style="display:inline-block;">
+																			<img alt="" src="static/dist/img/remove.png" style="display:inline-block; width: 20px;">
+                                                                        </span>
+                                                                        -->
+                                                                    
+                                                                    <strong class="text-15-res" style="display:inline-block; margin-left: 2%;">
+																			{{opciones.txOpcion}}</strong>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                            </div>
+                       	</div>
+                   	</div>
+                </div>
+            </modal-body>
+            <modal-footer class="center">
+                <button type="button" ng-click="regresarIntentos()" class="btn btn-danger btn-flat" ng-show="btnRegresar">
+					Regresar
+				</button>
+                <button type="button" ng-click="cerrarVerIntentos()" class="btn btn-danger btn-flat">
+					Cerrar
+				</button>
+            </modal-footer>
+        </modal>
+    </section>
+</body>

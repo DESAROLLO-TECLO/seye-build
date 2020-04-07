@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Paso 1</title>
+	</head>
+	
+	<body>
+		<div class="container row" ng-controller="instruccionController">
+			<form name="formStepOne" novalidate>
+				<div class="col-md-10 col-md-offset-1">
+				<div class="row center">
+					<div class="col-md-10 col-md-offset-1">
+						<div class="row">
+							
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="thumbnail">
+								      <div class="caption">
+								        <h4>
+								        	<i class="fa fa-user"></i>
+											<label>Evaluado:</label>
+										</h4>
+								        <p class="text-16">
+								        	{{encuestaDetalle.usuario.nbApaterno+" "}}{{encuestaDetalle.usuario.nbAmaterno +" "}}{{encuestaDetalle.usuario.nbUsuario}}
+								        </p>
+								      </div>
+								    </div>
+								</div>
+							</div>
+							<div class="col-md-4">
+
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<div class="thumbnail">
+								      <div class="caption">
+								        <h4>
+											<i class="fa fa-question-circle"></i>
+											<label>Preguntas:</label>
+										</h4>
+								        <p class="text-16">
+								        	{{encuestaDetalle.encuesta.nuPreguntas}}
+								        </p>
+								      </div>
+								    </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<!--INPUT DE INSTRUCCIONES-->
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group center">
+							<h4>
+								<i class="fa fa-list-ul"></i>
+								<label>Instrucciones:</label>
+							</h4>
+							
+							<br>
+							<div class="text-16 instruc-text-list center" style="justify-content: center;">
+								{{encuestaDetalle.encuesta.txInstrucciones}}
+								</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+						
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group center">
+							<h4>
+								<i class="fa fa-list-ul"></i>
+								<label>Secciones:</label>
+							</h4>
+							<br>
+							<div class="text-16 instruc-text-list" ng-repeat="seccion in encuestaDetalle.encuesta.secciones">
+							<div class="col-md-6"> * {{seccion.nbSeccion}} </div>	
+							<div class="col-md-6"> * {{seccion.txSeccion}} </div>
+							</div>
+						</div>	
+					</div>
+				</div>
+				<hr>
+				
+				<br>
+				<div class="row">
+					<div class="col center">
+						<button  class="btn btn-danger btn-lg" ng-click="regresarEncuestas()">
+							Regresar
+						</button>
+						<button ng-show="encuestaDetalle.intentoDetalleVO.stEncuesta.cdStEncuesta=='NI' || encuestaDetalle.intentoDetalleVO==NULL " class="btn btn-danger btn-lg" ng-click="saveStepOne(idEncuesta)">
+							Comenzar
+						</button>
+						<button ng-show="encuestaDetalle.intentoDetalleVO.stEncuesta.cdStEncuesta=='EC'" class="btn btn-warning btn-lg" ng-click="reanudarEncuesta(idEncuesta)">
+							Reanudar
+						</button>
+						<button ng-show="encuestaDetalle.intentoDetalleVO.stEncuesta.cdStEncuesta=='FIN'" class="btn btn-success btn-lg" ng-disabled='true'>
+							Finalizada
+						</button>
+					</div>
+				</div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

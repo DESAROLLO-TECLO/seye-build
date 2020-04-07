@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>Paso 1</title>
+	</head>
+	
+	<body>
+
+		<div class="row" ng-controller="preguntaController">
+			<form name="formStepTwo" novalidate>
+	<div class="col-md-12">
+		<div class="row">
+
+
+	<div class="col-md-2">
+		<div ng-repeat="seccion in encuestaDetalle.encuesta.secciones | orderBy:'nuOrden'" > 
+				
+				<span ng-style="seccion.cdSeccion === seccionSeleccion && {'border-style':'dotted','border-color': black}" ng-if="seccion.nuPreguntasContestadas==0 || seccion.nuPreguntasContestadas===null" style="cursor: pointer;"  class="label label-danger center-block"
+				>{{seccion.cdSeccion}}</span>
+			
+			
+				<span  ng-style="seccion.cdSeccion === seccionSeleccion && {'border-style':'dotted','border-color': black}" ng-if="seccion.nuPreguntasContestadas>0 && seccion.nuPreguntasContestadas<seccion.preguntas.length" style="cursor: pointer;"   class="label label-warning center-block"
+				>{{seccion.cdSeccion}}</span>
+		
+
+				<span   ng-style="seccion.cdSeccion === seccionSeleccion && {'border-style':'dotted','border-color':black}" ng-if="seccion.nuPreguntasContestadas>=seccion.preguntas.length" style="cursor: pointer;"   class="label label-success center-block"
+				>{{seccion.cdSeccion}}</span>
+		
+		</div>
+	</div>
+
+				<div class="col-md-9">
+
+					<!--Area de Pregunta-->
+
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border">Preguntas</legend>
+						<!--SECCION DE PREGUNTAS -->
+						<div class="col-md-12">
+							<div>
+								<div class="box-header col-md-12">
+									<div class="col-md-6 col-xs-12">
+										
+										<strong >
+											ENCUESTA : <span>{{encuestaDetalle.encuesta.nbEncuesta}}</span>
+										</strong>
+									</div>
+									<div  class="col-md-6 col-xs-0">
+
+										<strong >
+											ENCUESTA : <span>{{seccionVO.nbSeccion}}</span>
+										</strong>
+									  								 															
+									</div>
+								
+								</div>
+								<hr><hr/>
+
+								<div class="box-header col-md-12">
+								
+									<div class="col-md-6 col-xs-0">
+
+									<strong >
+											PREGUNTAS CONTESTADAS POR SECCION : <span>{{seccionVO.nuPreguntasContestadas+' DE '}} {{ (seccionVO.preguntas | filter:general.filter).length }}</span>
+										</strong>
+
+									</div>
+									<div class="col-md-6 col-xs-0">
+										<strong>
+											TOTAL PREGUNTAS CONTESTADAS:{{preguntasContestadasEncuesta+' DE ' }}<span>{{encuestaDetalle.encuesta.nuPreguntas}}</span>
+										</strong>
+									</div>
+								  
+								</div>
+
+
+
+					<div class="box-body table-responsive no-padding">
+
+						<div   dir-paginate=" respuesta in seccionVO.preguntas | filter:general.filter | orderBy:order:reverse | itemsPerPage: view.rowsPerPage" pagination-id="myTable">
+							<div 
+							ng-class="{ 'has-error' : formStepTwo.{{'valueOption'++$index}}.$invalid && formStepTwo.{{'customValue'++$index}}.$dirty}"
+							>
+									<div> 
+										<span>{{respuesta.txPregunta}}</span>
+									</div>
+								<div>
+									<div ng-repeat="opciones in respuesta.opciones" >
+									<div>&nbsp;&nbsp;&nbsp;&nbsp;	
+								<label align="right">
+									   <input type="radio" id="{{'valueOption'++$index}}" name="{{respuesta.txPregunta}}"
+									    ng-checked="opciones.stCorrecto" ng-value=1;
+										 ng-model="opciones.stCorrecto" ng-change="checkPregunta(opciones.stCorrecto,respuesta)" >
+										
+									 </label>  
+										<span>{{opciones.txOpcion}}</span>
+									</div>	
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="container-fluid">
+							<div class="fixed-table-pagination" style="display: block;">
+								<rows-per-page rows="view.rowsPerPage" filtro="general.filter" array="seccionVO.preguntas"></rows-per-page>
+								<div class="pull-right pagination">
+									<dir-pagination-controls class="pagination" pagination-id="myTable"></dir-pagination-controls>
+								</div>
+							</div>
+						</div>
+					</div>
+								
+							</div>
+						</div>
+						<!--SECCION DE PREGUNTAS-->
+					</fieldset>
+
+					<!--Area de Pregunta-->
+				</div>						
+			</div>
+					</div>
+					
+					<div class="row centerCol">
+						<div class="col-xs-12 col-md-3">
+							<div class="centerRow">
+						        <button class="btn btn-danger" wz-previous>
+					        	Regresar
+								</button>
+								<button ng-if="posicionActual>0" class="btn btn-danger"  ng-click="cambiarPregunta(encuestaDetalle.encuesta.secciones[posicionActual],encuestaDetalle.encuesta.secciones[posicionActual-1]) ">
+									<i class="fa fa-arrow-left"></i>
+									</button>
+						        <button class="btn btn-default" ng-click="finalizaEncuesta()" >
+						        	Finalizar
+						        </button>
+						        <button ng-if="posicionActual < encuestaDetalle.encuesta.secciones.length-1"  class="btn btn-danger" ng-click="cambiarPregunta(encuestaDetalle.encuesta.secciones[posicionActual],encuestaDetalle.encuesta.secciones[posicionActual+1])">
+						        	<i class="fa fa-arrow-right"></i>
+						        </button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

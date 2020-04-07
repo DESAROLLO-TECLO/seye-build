@@ -1,0 +1,220 @@
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<section class="content">
+		<div class="row" ng-controller="resultadoController">
+			<form name="formStepThree" novalidate>
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-10 col-md-offset-1">
+		                	<div class="row">
+		                		<div class="col-md-12">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0">
+									        <p class="text-20 center">
+									        	{{encuestaDetalleFinal.encuesta.nbEncuesta}}
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+		                		<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0">
+									        <h5>
+												<i class="fa fa-calendar-o"></i>
+												<label>Fecha Inicio:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{detalleFinalEncuesta.fhInicio}} 
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0">
+									        <h5>
+									        	<i class="fa fa-calendar-o"></i>
+												<label>Fecha Fin:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{detalleFinalEncuesta.fhFin}} 
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									
+								</div>
+								<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0">
+									        <h5>
+									        	<i class="fa fa-list-ul" ></i>
+												<label>Folio de Evaluación:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{encuestaDetalleFinal.encuesta.cdEncuesta}}
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-12"></div>
+		                		
+								<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0">
+									        <h5>
+									        	<i class="fa fa-list-ul" ></i>
+												<label>Secciones:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{encuestaDetalleFinal.encuesta.secciones.length}}
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									
+								</div>
+								<div class="col-md-3">
+									
+								</div>
+								<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0 ">
+									        <h5>
+									        	<i class="fa fa-question-circle"></i>
+												<label>Preguntas:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{encuestaDetalleFinal.encuesta.nuPreguntas}} 
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+								
+								<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0">
+									        <h5>
+									        	<i class="fa fa-check-circle" ></i>
+												<label>Correctas:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{detalleFinalEncuesta.nuPreguntasCorrectas}}
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption p-0">
+									        <h5>
+									        	<i class="fa fa-times"></i>
+												<label>Incorrectas:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{detalleFinalEncuesta.nuPreguntasIncorr}} 
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+								<div class="col-md-3">
+
+															
+								</div>
+								<div class="col-md-3">
+									<div class="form-group mb-0">
+										<div class="thumbnail mh-0 mb-0">
+									      <div class="caption">
+									        <h5>
+									        	<i class="fa fa-check-square-o" ></i>
+												<label>Calificación:</label>
+											</h5>
+									        <p class="text-16">
+									        	{{detalleFinalEncuesta.nuCalificacion}} ({{detalleFinalEncuesta.stCalificacion.nbStCalificacion}})
+									        </p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+		                	</div>
+		                </div>
+					</div>
+				</div>
+				
+			</form>
+			
+			
+			<div class="row">
+				<div class="col-md-10 col-md-offset-1">
+					<fieldset class="scheduler-border">
+						<legend class="scheduler-border text-16">Respuestas</legend>
+						
+						<div class="box-body table-responsive no-padding" >
+							<table  id="myTable2"  class="table table-hover header-fixed">
+								<tbody>
+									<div data-ng-repeat="seccion in detalleFinalEncuesta.seccionesListVO">
+									
+										<button type="button" class="btn btn-outline-secondary btn-block" data-toggle="collapse" data-target="#{{seccion.idSeccion}}">
+											<span  class="titulo-resp center">{{seccion.nbSeccion}}</span>
+											<i class="fa fa-arrow-down" style="display: inline-block; float: right; padding: 1%;"></i>
+										</button>
+										  <div id="{{seccion.idSeccion}}" class="collapse">
+										    <div  data-ng-repeat="respuesta in seccion.preguntas" pagination-id="myTable2">
+												<span class="text-15-res">{{respuesta.txPregunta}}</span>	
+												<ul>
+													<li style="list-style:none;" data-ng-repeat="opciones in respuesta.opciones" >
+														<span ng-if="opciones.stMarcado">
+															<!--
+															<span ng-if="opciones.stCorrecto == 1" style="display:inline-block;">
+																<img alt="" src="static/dist/img/correct.png" style="display:inline-block; width: 20px;">
+															</span>
+															<span ng-if="opciones.stCorrecto == 0" style="display:inline-block;">
+																<img alt="" src="static/dist/img/remove.png" style="display:inline-block; width: 20px;">
+															</span>
+															-->
+															<strong class="text-15-res" style="display:inline-block; margin-left: 2%;">
+																{{opciones.txOpcion}}</strong> 
+															</span>	
+													</li>
+												</ul>
+											</div>
+										  </div>
+									</div>
+								</tbody>
+							</table>
+						</div>	
+					</fieldset>
+					
+				</div>
+				
+				<div class="col-md-10 col-md-offset-1">
+					<div class="center" style="display:flex; justify-content: center;">
+				        <button class="btn btn-danger text-15" ng-click="regresarEncuestas()" >
+				        	Salir
+				        </button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
