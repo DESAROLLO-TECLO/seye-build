@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3870c93a-7602-45bd-b441-d58f16f7c093">
-	<property name="ireport.zoom" value="0.9090909090909095"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3870c93a-7602-45bd-b441-d58f16f7c093">
+	<property name="ireport.zoom" value="0.620921323059155"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="370"/>
+	<property name="ireport.background.image" value="C:\Users\unitis02\Pictures\Base Certificado\base-certificado-carta.jpg"/>
+	<property name="ireport.background.image.properties" value="false,true,1.0,0,0,0,0,0,0"/>
+	<style name="style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$P{FOLIO} != null]]></conditionExpression>
+			<style forecolor="#16B433"/>
+		</conditionalStyle>
+	</style>
 	<parameter name="NOMBRE" class="java.lang.String"/>
 	<parameter name="FECHA" class="java.lang.String"/>
 	<parameter name="SEDE" class="java.lang.String"/>
@@ -33,56 +41,46 @@
 	<parameter name="FIRMA" class="java.io.InputStream"/>
 	<parameter name="CUERPO" class="java.lang.String"/>
 	<parameter name="IMAGEN4" class="java.io.InputStream"/>
+	<parameter name="FONDO" class="java.io.InputStream"/>
 	<variable name="PRUEBA" class="java.lang.Integer">
 		<variableExpression><![CDATA[$P{IMAGEN4}.available()]]></variableExpression>
 		<initialValueExpression><![CDATA[]]></initialValueExpression>
 	</variable>
 	<background>
-		<band splitType="Stretch"/>
-	</background>
-	<detail>
-		<band height="501">
-			<rectangle>
-				<reportElement x="29" y="82" width="744" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="d6ea6ef8-99e9-4e73-8ec6-6dcb870794c1"/>
-			</rectangle>
-			<staticText>
-				<reportElement x="328" y="190" width="146" height="16" uuid="f64c3839-279a-404f-b27b-114d110bbea3"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<text><![CDATA[Otorga la presente]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="306" y="210" width="190" height="40" uuid="54879a1b-69f0-462b-8af6-aef7328524f5"/>
-				<textElement>
-					<font size="28"/>
-				</textElement>
-				<text><![CDATA[CONSTANCIA]]></text>
-			</staticText>
+		<band height="612" splitType="Stretch">
+			<image scaleImage="FillFrame">
+				<reportElement x="0" y="0" width="792" height="612" uuid="ae354185-983f-43b6-a11c-b19a85b66a12"/>
+				<imageExpression><![CDATA[$P{FONDO}]]></imageExpression>
+			</image>
 			<image onErrorType="Blank">
-				<reportElement x="148" y="7" width="107" height="67" uuid="b4fe64fd-b232-4512-9f66-71f139e5db38"/>
+				<reportElement x="423" y="541" width="153" height="72" uuid="b4fe64fd-b232-4512-9f66-71f139e5db38"/>
 				<imageExpression><![CDATA[$P{IMAGEN1}]]></imageExpression>
 			</image>
 			<image onErrorType="Blank">
-				<reportElement x="255" y="7" width="188" height="68" uuid="af630ddc-922e-4f15-90b7-921fcf45b3f0"/>
+				<reportElement x="589" y="547" width="147" height="55" uuid="af630ddc-922e-4f15-90b7-921fcf45b3f0"/>
 				<imageExpression><![CDATA[$P{IMAGEN2}]]></imageExpression>
 			</image>
-			<textField>
-				<reportElement x="40" y="254" width="722" height="65" uuid="182c5a44-f8b1-4d46-ae5f-b866bded7aa0"/>
-				<textElement markup="html">
-					<font size="12"/>
+			<image onErrorType="Blank">
+				<reportElement x="265" y="538" width="146" height="63" uuid="59c8514e-8e25-4f55-bbcb-6309e6dbd5be"/>
+				<imageExpression><![CDATA[$P{IMAGEN3}]]></imageExpression>
+			</image>
+			<image hAlign="Center" onErrorType="Blank">
+				<reportElement x="359" y="416" width="308" height="111" uuid="011614f5-5fad-40c5-aa3c-442489decc8b"/>
+				<imageExpression><![CDATA[$P{IMAGEN4}]]></imageExpression>
+			</image>
+		</band>
+	</background>
+	<detail>
+		<band height="501">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="271" y="299" width="465" height="23" isPrintWhenDetailOverflows="true" uuid="182c5a44-f8b1-4d46-ae5f-b866bded7aa0"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
+					<font fontName="Arial" size="13"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CUERPO}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="209" y="341" width="384" height="31" uuid="4e23e142-fb73-4354-8e0c-f4cd6f9545ca"/>
-				<textElement textAlignment="Center">
-					<font size="12"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Ciudad de México a " + $P{FECHA_ACTUAL}+"."]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="287" y="459" width="228" height="26" uuid="31efc78c-03b8-4fae-aad7-842e08bcf271">
+				<reportElement x="387" y="456" width="228" height="26" uuid="31efc78c-03b8-4fae-aad7-842e08bcf271">
 					<printWhenExpression><![CDATA[$V{PRUEBA}==null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -91,25 +89,37 @@
 				<text><![CDATA[Firma del Director]]></text>
 			</staticText>
 			<line>
-				<reportElement x="288" y="459" width="227" height="1" uuid="8b393930-6f10-4e07-a0c0-73737b45345c">
+				<reportElement x="388" y="456" width="227" height="1" uuid="8b393930-6f10-4e07-a0c0-73737b45345c">
 					<printWhenExpression><![CDATA[$V{PRUEBA}==null]]></printWhenExpression>
 				</reportElement>
 			</line>
-			<image onErrorType="Blank">
-				<reportElement x="452" y="7" width="201" height="67" uuid="59c8514e-8e25-4f55-bbcb-6309e6dbd5be"/>
-				<imageExpression><![CDATA[$P{IMAGEN3}]]></imageExpression>
-			</image>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="122" y="113" width="558" height="20" uuid="ea2a4cd3-859d-431f-a930-c5941094c64b"/>
-				<textElement textAlignment="Center">
-					<font size="16"/>
+				<reportElement stretchType="RelativeToTallestObject" x="461" y="153" width="274" height="45" uuid="ea2a4cd3-859d-431f-a930-c5941094c64b"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
+					<font fontName="Calibri" size="14" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
 			</textField>
-			<image hAlign="Center" onErrorType="Blank">
-				<reportElement x="209" y="397" width="384" height="90" uuid="011614f5-5fad-40c5-aa3c-442489decc8b"/>
-				<imageExpression><![CDATA[$P{IMAGEN4}]]></imageExpression>
-			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="270" y="212" width="465" height="25" isPrintWhenDetailOverflows="true" uuid="5220b1e4-1117-4c1b-922f-81a8cbda878c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Gabriola" size="42" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NOMBRE}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="269" y="293" width="465" height="1" uuid="78c14c0d-92de-4652-9207-c8bba23d5912"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="271" y="326" width="465" height="24" isPrintWhenDetailOverflows="true" uuid="507e917c-0639-401a-aa68-ce0b54a6a3da"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" markup="styled">
+					<font fontName="Arial" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Realizado en la Ciudad de México con fecha " +$P{FECHA_ACTUAL}+"."]]></textFieldExpression>
+			</textField>
 		</band>
 	</detail>
 </jasperReport>

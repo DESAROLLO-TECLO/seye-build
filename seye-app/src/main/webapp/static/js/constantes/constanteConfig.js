@@ -3,7 +3,7 @@ angular.module(appTeclo).constant("constante", {
     //	urlWs: "/sspcdmxsai_api_v600r4",
     //	urlWs: "/teclocdmxca_api_v220r1",
     //	urlWs: "/teclocdmxgc_api_v220r1",
-    urlWs: "/saecdmx_api_v100r1",
+    urlWs: "/seyecdmx_api_v110r1_qa/",
     //	urlWs: "/sicnapp_api_v100r1",
     appletClass: 'application.App',
 });
