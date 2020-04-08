@@ -365,6 +365,8 @@ public class ReporteServiceImpl implements ReporteService{
 		InputStream img3 = null;
 		InputStream img4 = null;
 		
+		String fondo = context.getRealPath("/WEB-INF/imagenes/base-certificado-carta.jpg");
+		InputStream fondoFile = new FileInputStream(fondo);
 		try {
 			img1 = configReporteDTO.getLbImg1().getBinaryStream();
 			img2 = configReporteDTO.getLbImg2().getBinaryStream();
@@ -404,6 +406,7 @@ public class ReporteServiceImpl implements ReporteService{
 		
 		String [][] reemplazos ={
 				{":nbEvaluado", nbUsuario == null ? "" : nbUsuario},
+				{":empPlaca",uaDTO.getUsuario().getCdUsuario()},
 				{":nbEncuesta", ueiDTO.getUsuarioEncuesta().getEncuesta().getNbEncuesta()},
 				{":nbResultado",  ueiDTO.getStCalificacion().getNbStCalificacion() == null ? "" :  ueiDTO.getStCalificacion().getNbStCalificacion(), ueiDTO.getStEncuesta().getNbStEncuesta()},
 				{":nuCal", ueiDTO.getNuCalificacion().toString() == null ? "" : ueiDTO.getNuCalificacion().toString()},
@@ -430,6 +433,7 @@ public class ReporteServiceImpl implements ReporteService{
 		param.put("IMAGEN2", img2);
 		param.put("IMAGEN3", img3);
 		param.put("IMAGEN4", img4);
+		param.put("FONDO", fondoFile);
 		
 		param.put("TITULO", configReporteDTO.getTxTituloEncuesta());
 		param.put("CUERPO", cuerpo);
