@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3870c93a-7602-45bd-b441-d58f16f7c093">
-	<property name="ireport.zoom" value="0.620921323059155"/>
+	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="370"/>
+	<property name="ireport.y" value="740"/>
 	<property name="ireport.background.image" value="C:\Users\unitis02\Pictures\Base Certificado\base-certificado-carta.jpg"/>
 	<property name="ireport.background.image.properties" value="false,true,1.0,0,0,0,0,0,0"/>
 	<style name="style1">
@@ -53,19 +53,19 @@
 				<imageExpression><![CDATA[$P{FONDO}]]></imageExpression>
 			</image>
 			<image onErrorType="Blank">
-				<reportElement x="423" y="541" width="153" height="72" uuid="b4fe64fd-b232-4512-9f66-71f139e5db38"/>
+				<reportElement x="419" y="544" width="153" height="63" uuid="b4fe64fd-b232-4512-9f66-71f139e5db38"/>
 				<imageExpression><![CDATA[$P{IMAGEN1}]]></imageExpression>
 			</image>
 			<image onErrorType="Blank">
-				<reportElement x="589" y="547" width="147" height="55" uuid="af630ddc-922e-4f15-90b7-921fcf45b3f0"/>
+				<reportElement x="589" y="549" width="147" height="54" uuid="af630ddc-922e-4f15-90b7-921fcf45b3f0"/>
 				<imageExpression><![CDATA[$P{IMAGEN2}]]></imageExpression>
 			</image>
 			<image onErrorType="Blank">
-				<reportElement x="265" y="538" width="146" height="63" uuid="59c8514e-8e25-4f55-bbcb-6309e6dbd5be"/>
+				<reportElement x="265" y="540" width="146" height="63" uuid="59c8514e-8e25-4f55-bbcb-6309e6dbd5be"/>
 				<imageExpression><![CDATA[$P{IMAGEN3}]]></imageExpression>
 			</image>
 			<image hAlign="Center" onErrorType="Blank">
-				<reportElement x="359" y="416" width="308" height="111" uuid="011614f5-5fad-40c5-aa3c-442489decc8b"/>
+				<reportElement x="357" y="431" width="303" height="100" uuid="011614f5-5fad-40c5-aa3c-442489decc8b"/>
 				<imageExpression><![CDATA[$P{IMAGEN4}]]></imageExpression>
 			</image>
 		</band>
@@ -73,50 +73,50 @@
 	<detail>
 		<band height="501">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="271" y="299" width="465" height="23" isPrintWhenDetailOverflows="true" uuid="182c5a44-f8b1-4d46-ae5f-b866bded7aa0"/>
+				<reportElement x="271" y="305" width="465" height="23" isPrintWhenDetailOverflows="true" uuid="182c5a44-f8b1-4d46-ae5f-b866bded7aa0"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
-					<font fontName="Arial" size="13"/>
+					<font fontName="Source Serif Pro" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{CUERPO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="387" y="456" width="228" height="26" uuid="31efc78c-03b8-4fae-aad7-842e08bcf271">
+				<reportElement x="387" y="461" width="228" height="26" uuid="31efc78c-03b8-4fae-aad7-842e08bcf271">
 					<printWhenExpression><![CDATA[$V{PRUEBA}==null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center">
-					<font size="16"/>
+					<font fontName="Source Serif Pro" size="16"/>
 				</textElement>
 				<text><![CDATA[Firma del Director]]></text>
 			</staticText>
 			<line>
-				<reportElement x="388" y="456" width="227" height="1" uuid="8b393930-6f10-4e07-a0c0-73737b45345c">
+				<reportElement x="388" y="461" width="227" height="1" uuid="8b393930-6f10-4e07-a0c0-73737b45345c">
 					<printWhenExpression><![CDATA[$V{PRUEBA}==null]]></printWhenExpression>
 				</reportElement>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement stretchType="RelativeToTallestObject" x="461" y="153" width="274" height="45" uuid="ea2a4cd3-859d-431f-a930-c5941094c64b"/>
+				<reportElement stretchType="RelativeToTallestObject" x="461" y="156" width="274" height="45" uuid="ea2a4cd3-859d-431f-a930-c5941094c64b"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" markup="styled">
-					<font fontName="Calibri" size="14" isPdfEmbedded="true"/>
+					<font fontName="Source Serif Pro" size="14" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="270" y="212" width="465" height="25" isPrintWhenDetailOverflows="true" uuid="5220b1e4-1117-4c1b-922f-81a8cbda878c"/>
+				<reportElement x="270" y="215" width="465" height="25" isPrintWhenDetailOverflows="true" uuid="5220b1e4-1117-4c1b-922f-81a8cbda878c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
 					<font fontName="Gabriola" size="42" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{NOMBRE}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="269" y="293" width="465" height="1" uuid="78c14c0d-92de-4652-9207-c8bba23d5912"/>
+				<reportElement x="269" y="299" width="465" height="1" uuid="78c14c0d-92de-4652-9207-c8bba23d5912"/>
 				<graphicElement>
 					<pen lineWidth="1.5"/>
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="271" y="326" width="465" height="24" isPrintWhenDetailOverflows="true" uuid="507e917c-0639-401a-aa68-ce0b54a6a3da"/>
+				<reportElement positionType="Float" x="271" y="332" width="465" height="24" isPrintWhenDetailOverflows="true" uuid="507e917c-0639-401a-aa68-ce0b54a6a3da"/>
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="styled">
-					<font fontName="Arial" size="13"/>
+					<font fontName="Source Serif Pro" size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Realizado en la Ciudad de México con fecha " +$P{FECHA_ACTUAL}+"."]]></textFieldExpression>
 			</textField>
