@@ -34,18 +34,18 @@
 	<title>
 		<band height="85">
 			<image scaleImage="RealHeight" onErrorType="Blank">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="21" y="10" width="129" height="50" uuid="e2500edd-f7be-498d-9942-60e1b75890e8"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="21" y="5" width="134" height="63" uuid="e2500edd-f7be-498d-9942-60e1b75890e8"/>
 				<imageExpression><![CDATA[$P{IMAGEN1}]]></imageExpression>
 			</image>
 			<image scaleImage="RealHeight" onErrorType="Blank">
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="196" y="13" width="167" height="45" uuid="7b348adc-7413-4947-9849-616c08167cc7"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="196" y="6" width="172" height="44" uuid="7b348adc-7413-4947-9849-616c08167cc7"/>
 				<imageExpression><![CDATA[$P{IMAGEN2}]]></imageExpression>
 			</image>
 			<rectangle>
-				<reportElement x="16" y="65" width="522" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="45f93184-dbbe-4025-bd49-3d6d5f709587"/>
+				<reportElement x="16" y="71" width="522" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="45f93184-dbbe-4025-bd49-3d6d5f709587"/>
 			</rectangle>
 			<image scaleImage="RealHeight" onErrorType="Blank">
-				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="413" y="2" width="121" height="44" uuid="cb8374a1-763e-4072-8f8e-fec0a02779c1"/>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="413" y="-2" width="121" height="50" uuid="cb8374a1-763e-4072-8f8e-fec0a02779c1"/>
 				<imageExpression><![CDATA[$P{IMAGEN3}]]></imageExpression>
 			</image>
 		</band>

@@ -34,7 +34,7 @@
 	<detail>
 		<band height="475">
 			<image scaleImage="RetainShape">
-				<reportElement positionType="Float" x="322" y="16" width="200" height="55" uuid="59869bc3-9645-42a8-a1ef-64f859a2aa5e"/>
+				<reportElement positionType="Float" x="325" y="16" width="200" height="55" uuid="59869bc3-9645-42a8-a1ef-64f859a2aa5e"/>
 				<imageExpression><![CDATA[$P{IMAGEN2}]]></imageExpression>
 			</image>
 			<image scaleImage="RetainShape">
@@ -56,10 +56,10 @@
 				<textFieldExpression><![CDATA["Ciudad de México a " +$P{FECHA_ACTUAL}+"."]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="29" y="95" width="744" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="272a97ea-535a-4f89-ad38-8148746fd36e"/>
+				<reportElement x="29" y="88" width="744" height="10" forecolor="#00CC00" backcolor="#00CC00" uuid="272a97ea-535a-4f89-ad38-8148746fd36e"/>
 			</rectangle>
 			<image scaleImage="RetainShape">
-				<reportElement x="579" y="0" width="213" height="74" uuid="38a6f416-0562-4348-a697-7b3ca1655218"/>
+				<reportElement x="586" y="0" width="194" height="74" uuid="38a6f416-0562-4348-a697-7b3ca1655218"/>
 				<imageExpression><![CDATA[$P{IMAGEN3}]]></imageExpression>
 			</image>
 			<textField isStretchWithOverflow="true">
