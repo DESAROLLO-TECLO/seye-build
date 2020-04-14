@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3870c93a-7602-45bd-b441-d58f16f7c093">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="0.9090909090909091"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="740"/>
+	<property name="ireport.y" value="0"/>
 	<property name="ireport.background.image" value="C:\Users\unitis02\Pictures\Base Certificado\base-certificado-carta.jpg"/>
 	<property name="ireport.background.image.properties" value="false,true,1.0,0,0,0,0,0,0"/>
 	<style name="style1">
@@ -73,7 +73,7 @@
 	<detail>
 		<band height="501">
 			<textField isStretchWithOverflow="true">
-				<reportElement x="271" y="305" width="465" height="23" isPrintWhenDetailOverflows="true" uuid="182c5a44-f8b1-4d46-ae5f-b866bded7aa0"/>
+				<reportElement x="265" y="305" width="471" height="23" isPrintWhenDetailOverflows="true" uuid="182c5a44-f8b1-4d46-ae5f-b866bded7aa0"/>
 				<textElement textAlignment="Justified" verticalAlignment="Top" markup="styled">
 					<font fontName="Source Serif Pro" size="14"/>
 				</textElement>
@@ -101,20 +101,20 @@
 				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="270" y="215" width="465" height="25" isPrintWhenDetailOverflows="true" uuid="5220b1e4-1117-4c1b-922f-81a8cbda878c"/>
-				<textElement textAlignment="Center" verticalAlignment="Top">
+				<reportElement x="260" y="215" width="483" height="25" isPrintWhenDetailOverflows="true" uuid="5220b1e4-1117-4c1b-922f-81a8cbda878c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
 					<font fontName="Gabriola" size="42" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{NOMBRE}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="269" y="299" width="465" height="1" uuid="78c14c0d-92de-4652-9207-c8bba23d5912"/>
+				<reportElement x="263" y="299" width="471" height="1" uuid="78c14c0d-92de-4652-9207-c8bba23d5912"/>
 				<graphicElement>
 					<pen lineWidth="1.5"/>
 				</graphicElement>
 			</line>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="271" y="332" width="465" height="24" isPrintWhenDetailOverflows="true" uuid="507e917c-0639-401a-aa68-ce0b54a6a3da"/>
+				<reportElement positionType="Float" x="265" y="332" width="471" height="24" isPrintWhenDetailOverflows="true" uuid="507e917c-0639-401a-aa68-ce0b54a6a3da"/>
 				<textElement textAlignment="Right" verticalAlignment="Top" markup="styled">
 					<font fontName="Source Serif Pro" size="14"/>
 				</textElement>
