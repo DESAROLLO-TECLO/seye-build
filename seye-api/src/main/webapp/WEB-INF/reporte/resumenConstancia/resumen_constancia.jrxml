@@ -2,13 +2,13 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report3" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="792" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3870c93a-7602-45bd-b441-d58f16f7c093">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="144"/>
+	<property name="ireport.y" value="0"/>
 	<property name="ireport.background.image" value="C:\Users\unitis02\Pictures\Base Certificado\base-certificado-carta.jpg"/>
 	<property name="ireport.background.image.properties" value="false,true,1.0,0,0,0,0,0,0"/>
 	<style name="style1" markup="styled" fontName="Gabriola" fontSize="42" isStrikeThrough="false">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$P{NOMBRE}.length() > 34 ? true:false]]></conditionExpression>
-			<style fontSize="36"/>
+			<style fontSize="34"/>
 		</conditionalStyle>
 	</style>
 	<parameter name="NOMBRE" class="java.lang.String"/>
@@ -104,6 +104,7 @@
 				<reportElement style="style1" x="251" y="215" width="490" height="32" isPrintWhenDetailOverflows="true" uuid="5220b1e4-1117-4c1b-922f-81a8cbda878c"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" markup="styled">
 					<font fontName="Gabriola" isBold="false" isPdfEmbedded="true"/>
+                    <paragraph lineSpacing="Proportional" lineSpacingSize="0.1"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{NOMBRE}]]></textFieldExpression>
 			</textField>
